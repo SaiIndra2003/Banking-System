@@ -72,10 +72,6 @@ public class Bank {
         }
     }
 
-    public void printTransactionHistory() {
-        transactionManager.printTransactionHistory();
-    }
-
     public void generateTransactionHistoryReport(String accountNumber) {
         Account account = getAccount(accountNumber);
         if (account == null) {

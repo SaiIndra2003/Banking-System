@@ -15,13 +15,13 @@ public class HistoryReport implements Report {
 
     @Override
     public void generate(Account account) {
-        List<Transaction> transactions = transactionManager.getTransactionsForAccount(account.getAccountNumber());
+        List<String> transactions = transactionManager.getTransactionsForAccount(account.getAccountNumber());
         if (transactions.isEmpty()) {
             System.out.println("No transaction history for account " + account.getAccountNumber());
         } else {
-            System.out.println("com.banking.transaction.Transaction History for account " + account.getAccountNumber() + ":");
-            for (Transaction transaction : transactions) {
-                System.out.println(transaction.getTransactionDetails());
+            System.out.println("Transaction History for account " + account.getAccountNumber() + ":");
+            for (String transaction : transactions) {
+                System.out.println(transaction);
             }
         }
     }

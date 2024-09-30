@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class TransactionManager {
-    private final List<Transaction> transactionHistory;
-    private final Map<String, List<Transaction>> accountTransactionMap;  // Map to track transactions by account number
+    private final Map<String, List<String>> accountTransactionMap;  // Map to track transactions by account number
 
     public TransactionManager() {
-        this.transactionHistory = new ArrayList<>();
         this.accountTransactionMap = new HashMap<>();
     }
 
@@ -21,20 +19,14 @@ public class TransactionManager {
     public void executeTransaction(Account account, Transaction transaction) {
         boolean success = transaction.execute();
         if (success) {
-            transactionHistory.add(transaction);
             // Add the transaction to the specific account's transaction list
-            accountTransactionMap.computeIfAbsent(account.getAccountNumber(), k -> new ArrayList<>()).add(transaction);
+            accountTransactionMap.computeIfAbsent(account.getAccountNumber(), k -> new ArrayList<>()).add(transaction.getTransactionDetails());
         }
     }
 
     // Get transactions for a specific account
-    public List<Transaction> getTransactionsForAccount(String accountNumber) {
+    public List<String> getTransactionsForAccount(String accountNumber) {
         return accountTransactionMap.getOrDefault(accountNumber, new ArrayList<>());
     }
 
-    public void printTransactionHistory() {
-        for (Transaction transaction : transactionHistory) {
-            System.out.println(transaction.getTransactionDetails());
-        }
-    }
 }
